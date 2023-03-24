@@ -1,5 +1,5 @@
 .development
 debug_custom.json
-.svd
-.cfg
+*.svd
+*.cfg
 .DS_Store

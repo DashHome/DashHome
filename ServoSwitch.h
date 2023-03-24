@@ -3,8 +3,9 @@
 //   Servo Controlled Light Switch //
 ////////////////////////////////////
 
-#include <ESP32Servo.h>
 #include <ArduinoJson.h>
+#include <ESP32Servo.h>
+
 Servo motor_off, motor_on;
 
 struct ServoSwitch;
@@ -101,10 +102,9 @@ class ServoSwitch {
 
  public:
 
-  void begin(char* data) {
-
+  static void begin(char* data) {
     String jinput = data;
-    StaticJsonDocument <768> doc;
+    StaticJsonDocument <256> doc;
     
     DeserializationError error = deserializeJson(doc, jinput);
 
@@ -151,7 +151,6 @@ class ServoSwitch {
     const bool reverse_on_off = doc.containsKey("reverse_on_off") ? true : false;
 
     new SerSw(switchid, motor_off_pin, motor_on_pin, motor_off_center, motor_on_center, off_motor_offset, on_motor_offset, off_motor_min, off_motor_max, on_motor_min, on_motor_max, off_motor_min_deg, off_motor_max_deg, on_motor_min_deg, on_motor_max_deg, reverse_on_off);
-    
   }
 
   const char* getName() {

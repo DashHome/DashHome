@@ -3,7 +3,7 @@
 // MicroTuya via UART //
 ////////////////////////////////////
 
-#include <ArduinoJson.h>
+// #include <ArduinoJson.h>
 #include <HardwareSerial.h>
 
 HardwareSerial SerialPort(1); // use UART1
@@ -13,7 +13,7 @@ extern MicroTuya microTuya;
 
 class MicroTuya {
 // First we create a derived class from the HomeSpan LightBulb Service
-struct uTuya : Service::Switch {               
+/* struct uTuya : Service::Switch {               
 
   // Here we create a generic pointer to a SpanCharacteristic named "power" and an integer to store the ID of the Switch that HomeSpan request us to toggle, we will use them below
     String switchID;
@@ -159,15 +159,15 @@ bool decodeResponse(String json_data, String switchNO) {
       }
     }*/
 
-    return(result); // return true to indicate the update was successful (otherwise create code to return false if some reason you could not turn on the LED)
-  }
-};
+    //return(result); // return true to indicate the update was successful (otherwise create code to return false if some reason you could not turn on the LED)
+  //}
+//}; 
 
  public:
 
   void begin(char* data) {
     Serial.println(data);
-    new uTuya("0xsjkfbifhhih");
+    //new uTuya("0xsjkfbifhhih");
   }
 
   const char* getName() {

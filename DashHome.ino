@@ -215,7 +215,7 @@ int addAccessory(const char *name, const char *accessoryType){
   if(n>sizeof(accessoryData[index].name))
     Serial.printf("Warning - name trimmed to max length of %d characters.\n",MAX_NAME_LENGTH);
 
-  const char *init_empty = "";
+  const char *init_empty = "{}";
   strncpy_trim(accessoryData[index].jsondata,init_empty,sizeof(accessoryData[index].jsondata));
   accessoryData[index].aid=aidStore++;
 
@@ -400,7 +400,8 @@ void setupWeb(){
     if(!openSlots)
       response += "<p>Can't add any more Accessory.  Max="+ String(MAX_DEVICES) + "</p>";
 
-    response += "<p>Press here to update the Home App when finished making changes: <button class='button' type='button' onclick=\"document.location='/update'\">Update HomeKit</button></p>";
+    response += "<p>Click here to update the Home App when finished making changes: <button class='button' type='button' onclick=\"document.location='/update'\">Update HomeKit</button></p>";
+    response += "<p>JSON config requires a restart of the device to apply changes, Click to restart: <button class='button' type='button' onclick=\"if (confirm('Warning : Confirm to restart the ESP Device?')) document.location='/restartESP';\">Restart Device</button></p>";
     
     response += "</div>" + editor_modal + web_editor + "</body></html>";
     webServer.send(200, "text/html", response);
@@ -444,6 +445,17 @@ void setupWeb(){
     webServer.send(200, "text/html", response);
 
   });  
+
+  webServer.on("/restartESP", []() {
+
+      String response = web_header_content + "<body>";
+      response += "Restarting ESP Device ...</body></html>";  
+      webServer.send(200, "text/html", response);
+
+      delay(3000);
+      ESP.restart();
+      
+  });
 
   webServer.on("/jsonData", []() {
 
