@@ -379,8 +379,6 @@ void setupWeb(){
     response += "<td><input type='text' name='name' required placeholder='Type device ID here...' size='" + String(MAX_NAME_LENGTH) + "' maxlength='" + String(MAX_NAME_LENGTH) + "'></td>";
     response += "<td><select name='accessoryType'><option>Select accessory type:</option>";
 
-    // add built-in
-    response += "<option value='Basic (DigitalWrite)'>Basic (DigitalWrite)</option>";
     // add plugins
     for (int i = 0; pluginList[i] != NULL; i++) {
       response += "<option value='"+ String(pluginList[i]) + "'>" + String(pluginList[i]) + "</option>";
